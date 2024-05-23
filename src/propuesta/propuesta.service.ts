@@ -31,6 +31,10 @@ export class PropuestaService {
     return this.propuestaRepository.find();
   }
 
+  async findAllWithRelations() {
+    return this.propuestaRepository.find({ relations: ['proyecto', 'profesor'] });
+  }
+
   async deletePropuesta(id: number): Promise<void> {
     const propuesta = await this.propuestaRepository.findOne({ where: { id }, relations: ['proyecto'] });
     if (!propuesta) {

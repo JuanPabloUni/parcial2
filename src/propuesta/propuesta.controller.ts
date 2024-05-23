@@ -23,6 +23,11 @@ export class PropuestaController {
     return this.propuestaService.findAllPropuesta();
   }
 
+  @Get()
+  findAllWithRelations() {
+    return this.propuestaService.findAllWithRelations();
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
     await this.propuestaService.deletePropuesta(id);
