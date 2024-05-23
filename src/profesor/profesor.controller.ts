@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ProfesorService } from './profesor.service';
 import { Profesor } from './profesor.entity';
 
@@ -9,27 +9,22 @@ export class ProfesorController {
   constructor(private readonly profesorService: ProfesorService) {}
 
   @Post()
-  create(@Body() profesor: Profesor) {
-    return this.profesorService.create(profesor);
-  }
-
-  @Get()
-  findAll() {
-    return this.profesorService.findAll();
+  async create(@Body() profesor: Profesor): Promise<Profesor> {
+    return this.profesorService.crearProfesor(profesor);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.profesorService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<Profesor> {
+    return this.profesorService.findProfesorById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProfesorDto: Partial<Profesor>) {
-    return this.profesorService.update(+id, updateProfesorDto);
+  @Delete('id/:id')
+  async removeById(@Param('id') id: number): Promise<void> {
+    await this.profesorService.eliminarProfesorPorId(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.profesorService.remove(+id);
+  @Delete('cedula/:cedula')
+  async removeByCedula(@Param('cedula') cedula: number): Promise<void> {
+    await this.profesorService.eliminarProfesorPorCedula(cedula);
   }
 }
