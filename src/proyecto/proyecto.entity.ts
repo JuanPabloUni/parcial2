@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+/* eslint-disable prettier/prettier */
+
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Estudiante } from '../estudiante/estudiante.entity';
 
 @Entity()
 export class Proyecto {
@@ -13,4 +16,8 @@ export class Proyecto {
 
   @Column({ type: 'varchar', length: 255 })
   url: string;
+
+  @OneToOne(() => Estudiante)
+  @JoinColumn()
+  estudiante: Estudiante;
 }

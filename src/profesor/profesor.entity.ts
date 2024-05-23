@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+/* eslint-disable prettier/prettier */
+
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Propuesta } from '../propuesta/propuesta.entity';
 
 @Entity()
 export class Profesor {
@@ -16,4 +19,10 @@ export class Profesor {
 
   @Column({ type: 'int' })
   numeroExtension: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  grupoDeInvestigacion: string;
+
+  @OneToMany(() => Propuesta, propuesta => propuesta.profesor)
+  propuestas: Propuesta[];
 }
