@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,23 +12,18 @@ export class EstudianteService {
     private estudianteRepository: Repository<Estudiante>,
   ) {}
 
-  create(estudiante: Estudiante) {
+  async crearEstudiante(estudiante: Estudiante) {
+    if (estudiante.codigoEstudiante.length !== 10) {
+      throw new Error('El código del estudiante debe tener 10 caracteres');
+    }
     return this.estudianteRepository.save(estudiante);
+  }
+
+  async findEstudianteById(id: number) {
+    return this.estudianteRepository.findOne({ where: { id } });
   }
 
   findAll() {
     return this.estudianteRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.estudianteRepository.findOne({ where: { id } });
-  }
-
-  update(id: number, updateEstudianteDto: Partial<Estudiante>) {
-    return this.estudianteRepository.update(id, updateEstudianteDto);
-  }
-
-  remove(id: number) {
-    return this.estudianteRepository.delete(id);
   }
 }

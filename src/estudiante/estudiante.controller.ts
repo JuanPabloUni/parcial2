@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { EstudianteService } from './estudiante.service';
 import { Estudiante } from './estudiante.entity';
 
@@ -9,27 +9,12 @@ export class EstudianteController {
   constructor(private readonly estudianteService: EstudianteService) {}
 
   @Post()
-  create(@Body() estudiante: Estudiante) {
-    return this.estudianteService.create(estudiante);
-  }
-
-  @Get()
-  findAll() {
-    return this.estudianteService.findAll();
+  crearEstudiante(@Body() estudiante: Estudiante) {
+    return this.estudianteService.crearEstudiante(estudiante);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estudianteService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstudianteDto: Partial<Estudiante>) {
-    return this.estudianteService.update(+id, updateEstudianteDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estudianteService.remove(+id);
+  findEstudianteById(@Param('id') id: string) {
+    return this.estudianteService.findEstudianteById(+id);
   }
 }

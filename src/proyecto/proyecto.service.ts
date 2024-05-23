@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,23 +12,10 @@ export class ProyectoService {
     private proyectoRepository: Repository<Proyecto>,
   ) {}
 
-  create(proyecto: Proyecto) {
+  async crearProyecto(proyecto: Proyecto) {
+    if (proyecto.fechaFin <= proyecto.fechaInicio) {
+      throw new Error('La fecha de fin debe ser posterior a la fecha de inicio');
+    }
     return this.proyectoRepository.save(proyecto);
-  }
-
-  findAll() {
-    return this.proyectoRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.proyectoRepository.findOne({ where: { id } });
-  }
-
-  update(id: number, updateProyectoDto: Partial<Proyecto>) {
-    return this.proyectoRepository.update(id, updateProyectoDto);
-  }
-
-  remove(id: number) {
-    return this.proyectoRepository.delete(id);
   }
 }
