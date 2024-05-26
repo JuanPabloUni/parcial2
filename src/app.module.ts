@@ -16,7 +16,7 @@ import { Propuesta } from './propuesta/propuesta.entity';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '123',
       database: 'parcial2',
       entities: [Profesor, Proyecto, Estudiante, Propuesta],
       synchronize: true,
