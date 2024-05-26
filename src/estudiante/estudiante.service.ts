@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Estudiante } from './estudiante.entity';
@@ -20,7 +20,11 @@ export class EstudianteService {
   }
 
   async findEstudianteById(id: number) {
-    return this.estudianteRepository.findOne({ where: { id } });
+    const estudiante = await this.estudianteRepository.findOne({ where: { id } });
+    if (!estudiante) {
+      throw new NotFoundException(`Estudiante con ID ${id} no encontrado`);
+    }
+    return estudiante;
   }
 
   findAll() {
