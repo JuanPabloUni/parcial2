@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProyectoModule } from './proyecto/proyecto.module';
+import { AppController } from './app.controller';
 import { EstudianteModule } from './estudiante/estudiante.module';
-import { PropuestaModule } from './propuesta/propuesta.module';
 import { ProfesorModule } from './profesor/profesor.module';
-import { Profesor } from './profesor/profesor.entity';
-import { Proyecto } from './proyecto/proyecto.entity';
+import { PropuestaModule } from './propuesta/propuesta.module';
+import { ProyectoModule } from './proyecto/proyecto.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Estudiante } from './estudiante/estudiante.entity';
+import { Profesor } from './profesor/profesor.entity';
 import { Propuesta } from './propuesta/propuesta.entity';
+import { Proyecto } from './proyecto/proyecto.entity';
 
 @Module({
   imports: [
@@ -18,14 +19,16 @@ import { Propuesta } from './propuesta/propuesta.entity';
       username: 'postgres',
       password: '123',
       database: 'parcial2',
-      entities: [Profesor, Proyecto, Estudiante, Propuesta],
+      entities: [Estudiante, Profesor, Propuesta, Proyecto],
       synchronize: true,
       keepConnectionAlive: true,
     }),
-    ProyectoModule,
     EstudianteModule,
-    PropuestaModule,
     ProfesorModule,
+    PropuestaModule,
+    ProyectoModule,
   ],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}
