@@ -14,7 +14,13 @@ export class EstudianteController {
   }
 
   @Get(':id')
-  findEstudianteById(@Param('id') id: string) {
+  findEstudianteById(@Param('id') id: number) {
     return this.estudianteService.findEstudianteById(+id);
   }
+
+  @Get()
+  findAll() {
+    return this.estudianteService.findAll();
+  }
+
 }

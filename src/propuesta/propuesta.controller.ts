@@ -9,17 +9,17 @@ export class PropuestaController {
   constructor(private readonly propuestaService: PropuestaService) {}
 
   @Post()
-  async create(@Body() propuesta: Propuesta): Promise<Propuesta> {
+  async crearPropuesta(@Body() propuesta: Propuesta): Promise<Propuesta> {
     return this.propuestaService.crearPropuesta(propuesta);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Propuesta> {
+  async findPropuestaById(@Param('id') id: number): Promise<Propuesta> {
     return this.propuestaService.findPropuestaById(id);
   }
 
   @Get()
-  async findAll(): Promise<Propuesta[]> {
+  async findAllPropuesta(): Promise<Propuesta[]> {
     return this.propuestaService.findAllPropuesta();
   }
 
@@ -29,7 +29,7 @@ export class PropuestaController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<void> {
+  async deletePropuesta(@Param('id') id: number): Promise<void> {
     await this.propuestaService.deletePropuesta(id);
   }
 }

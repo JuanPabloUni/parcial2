@@ -9,22 +9,22 @@ export class ProfesorController {
   constructor(private readonly profesorService: ProfesorService) {}
 
   @Post()
-  async create(@Body() profesor: Profesor): Promise<Profesor> {
+  async crearProfesor(@Body() profesor: Profesor): Promise<Profesor> {
     return this.profesorService.crearProfesor(profesor);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Profesor> {
+  async findProfesorById(@Param('id') id: number): Promise<Profesor> {
     return this.profesorService.findProfesorById(id);
   }
 
   @Delete('id/:id')
-  async removeById(@Param('id') id: number): Promise<void> {
+  async eliminarProfesorPorId(@Param('id') id: number): Promise<void> {
     await this.profesorService.eliminarProfesorPorId(id);
   }
 
   @Delete('cedula/:cedula')
-  async removeByCedula(@Param('cedula') cedula: number): Promise<void> {
+  async eliminarProfesorPorCedula(@Param('cedula') cedula: number): Promise<void> {
     await this.profesorService.eliminarProfesorPorCedula(cedula);
   }
 }
