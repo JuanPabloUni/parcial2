@@ -1,35 +1,34 @@
 /* eslint-disable prettier/prettier */
 
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, NotFoundException } from '@nestjs/common';
 import { PropuestaService } from './propuesta.service';
 import { Propuesta } from './propuesta.entity';
 
-@Controller('propuesta')
+@Controller('propuestas')
 export class PropuestaController {
   constructor(private readonly propuestaService: PropuestaService) {}
 
   @Post()
-  async crearPropuesta(@Body() propuesta: Propuesta): Promise<Propuesta> {
+  async create(@Body() propuesta: Propuesta) {
     return this.propuestaService.crearPropuesta(propuesta);
   }
 
   @Get(':id')
-  async findPropuestaById(@Param('id') id: number): Promise<Propuesta> {
-    return this.propuestaService.findPropuestaById(id);
+  async findOne(@Param('id') id: string) {
+    const propuesta = await this.propuestaService.findPropuestaById(+id);
+    if (!propuesta) {
+      throw new NotFoundException(`Propuesta con ID ${id} no encontrada`);
+    }
+    return propuesta;
   }
 
   @Get()
-  async findAllPropuesta(): Promise<Propuesta[]> {
-    return this.propuestaService.findAllPropuesta();
-  }
-
-  @Get()
-  findAllWithRelations() {
-    return this.propuestaService.findAllWithRelations();
+  async findAll() {
+    return this.propuestaService.findAllPropuestas();
   }
 
   @Delete(':id')
-  async deletePropuesta(@Param('id') id: number): Promise<void> {
-    await this.propuestaService.deletePropuesta(id);
+  async remove(@Param('id') id: string) {
+    return this.propuestaService.deletePropuesta(+id);
   }
 }

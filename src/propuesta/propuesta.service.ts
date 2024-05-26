@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Propuesta } from './propuesta.entity';
@@ -12,9 +12,9 @@ export class PropuestaService {
     private propuestaRepository: Repository<Propuesta>,
   ) {}
 
-  async crearPropuesta(propuesta: Propuesta): Promise<Propuesta> {
-    if (!propuesta.titulo || propuesta.titulo.trim().length === 0) {
-      throw new BadRequestException('El título no puede ser vacío.');
+  async crearPropuesta(propuesta: Propuesta) {
+    if (!propuesta.titulo || propuesta.titulo.trim() === '') {
+      throw new Error('El título no puede estar vacío');
     }
     return this.propuestaRepository.save(propuesta);
   }
@@ -27,21 +27,14 @@ export class PropuestaService {
     return propuesta;
   }
 
-  async findAllPropuesta(): Promise<Propuesta[]> {
+  async findAllPropuestas(): Promise<Propuesta[]> {
     return this.propuestaRepository.find();
   }
 
-  async findAllWithRelations() {
-    return this.propuestaRepository.find({ relations: ['proyecto', 'profesor'] });
-  }
-
   async deletePropuesta(id: number): Promise<void> {
-    const propuesta = await this.propuestaRepository.findOne({ where: { id }, relations: ['proyecto'] });
-    if (!propuesta) {
-      throw new NotFoundException(`Propuesta con ID ${id} no encontrada`);
-    }
+    const propuesta = await this.findPropuestaById(id);
     if (propuesta.proyecto) {
-      throw new BadRequestException('La propuesta no se puede eliminar porque tiene un proyecto asociado.');
+      throw new Error('La propuesta no se puede eliminar porque tiene un proyecto asociado');
     }
     await this.propuestaRepository.delete(id);
   }
