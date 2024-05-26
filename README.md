@@ -1,5 +1,199 @@
 # Juan Pablo Hernández - 202122707
 
+
+# Documentación POSTMAN
+
+1. Profesor
+Crear Profesor
+URL: http://localhost:3000/profesores
+Método: POST
+Body:
+
+
+{
+  "numeroCedula": 123456789,
+  "nombre": "Juan Perez",
+  "grupoInvestigacion": "TICSW",
+  "numeroExtension": 1234
+}
+Response (201 Created):
+
+
+{
+  "id": 1,
+  "numeroCedula": 123456789,
+  "nombre": "Juan Perez",
+  "grupoInvestigacion": "TICSW",
+  "numeroExtension": 1234
+}
+Obtener Profesor por ID
+URL: http://localhost:3000/profesores/1
+Método: GET
+Response (200 OK):
+
+
+{
+  "id": 1,
+  "numeroCedula": 123456789,
+  "nombre": "Juan Perez",
+  "grupoInvestigacion": "TICSW",
+  "numeroExtension": 1234
+}
+Response (404 Not Found):
+
+
+{
+  "statusCode": 404,
+  "message": "Profesor con ID 1 no encontrado",
+  "error": "Not Found"
+}
+Eliminar Profesor por ID
+URL: http://localhost:3000/profesores/1
+Método: DELETE
+Response (200 OK):
+
+
+{
+  "message": "Profesor eliminado exitosamente"
+}
+Response (400 Bad Request):
+
+
+{
+  "statusCode": 400,
+  "message": "El profesor no se puede eliminar porque tiene propuestas con proyectos asociados.",
+  "error": "Bad Request"
+}
+
+2. Estudiante
+Crear Estudiante
+URL: http://localhost:3000/estudiantes
+Método: POST
+Body:
+
+
+{
+  "nombre": "Maria Lopez",
+  "codigoEstudiante": "2023000010",
+  "numeroCreditosAprobados": 30
+}
+Response (201 Created):
+
+
+{
+  "id": 1,
+  "nombre": "Maria Lopez",
+  "codigoEstudiante": "2023000010",
+  "numeroCreditosAprobados": 30
+}
+Obtener Estudiante por ID
+URL: http://localhost:3000/estudiantes/1
+Método: GET
+Response (200 OK):
+
+
+{
+  "id": 1,
+  "nombre": "Maria Lopez",
+  "codigoEstudiante": "2023000010",
+  "numeroCreditosAprobados": 30
+}
+Response (404 Not Found):
+
+
+{
+  "statusCode": 404,
+  "message": "Estudiante con ID 1 no encontrado",
+  "error": "Not Found"
+}
+
+
+3. Propuesta
+Crear Propuesta
+URL: http://localhost:3000/propuestas
+Método: POST
+Body:
+
+
+{
+  "titulo": "Nueva Propuesta",
+  "descripcion": "Descripción detallada de la propuesta",
+  "palabraClave": "Innovación"
+}
+Response (201 Created):
+
+
+{
+  "id": 1,
+  "titulo": "Nueva Propuesta",
+  "descripcion": "Descripción detallada de la propuesta",
+  "palabraClave": "Innovación"
+}
+Obtener Propuesta por ID
+URL: http://localhost:3000/propuestas/1
+Método: GET
+Response (200 OK):
+
+
+{
+  "id": 1,
+  "titulo": "Nueva Propuesta",
+  "descripcion": "Descripción detallada de la propuesta",
+  "palabraClave": "Innovación"
+}
+Response (404 Not Found):
+
+
+{
+  "statusCode": 404,
+  "message": "Propuesta con ID 1 no encontrada",
+  "error": "Not Found"
+}
+
+
+4. Proyecto
+Crear Proyecto
+URL: http://localhost:3000/proyectos
+Método: POST
+Body:
+
+
+{
+  "fechaInicio": "2023-01-01T00:00:00.000Z",
+  "fechaFin": "2023-12-31T23:59:59.999Z",
+  "url": "http://example.com/proyecto"
+}
+Response (201 Created):
+
+
+{
+  "id": 1,
+  "fechaInicio": "2023-01-01T00:00:00.000Z",
+  "fechaFin": "2023-12-31T23:59:59.999Z",
+  "url": "http://example.com/proyecto"
+}
+Obtener Proyecto por ID
+URL: http://localhost:3000/proyectos/1
+Método: GET
+Response (200 OK):
+
+
+{
+  "id": 1,
+  "fechaInicio": "2023-01-01T00:00:00.000Z",
+  "fechaFin": "2023-12-31T23:59:59.999Z",
+  "url": "http://example.com/proyecto"
+}
+Response (404 Not Found):
+
+
+{
+  "statusCode": 404,
+  "message": "Proyecto con ID 1 no encontrado",
+  "error": "Not Found"
+}
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
